@@ -62,7 +62,7 @@ class FG_eval {
     const int v_cost_weight = 1;
     const int delta_cost_weight = 10;
     const int a_cost_weight = 10;
-    const int delta_change_cost_weight = 200;
+    const int delta_change_cost_weight = 100;
     const int a_change_cost_weight = 10;
     
     // The part of the cost based on the reference state.
@@ -177,9 +177,9 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   
   // Maybe the initial variable values are not good start for the optimization algorithm library
   // Set the initial variable values
-  vars[x_start] = 0;
-  vars[y_start] = 0;
-  vars[psi_start] = 0;
+  vars[x_start] = x;
+  vars[y_start] = y;
+  vars[psi_start] = psi;
   vars[v_start] = v;
   vars[cte_start] = cte;
   vars[epsi_start] = epsi;
