@@ -24,7 +24,7 @@ double dt = 0.1;
 const double Lf = 2.67;
 
 // Set desired speed for the cost function 
-const double ref_v = 120;
+const double ref_v = 100;
 
 // The solver takes all the state variables and actuator
 // variables in a singular vector. Thus, we should to establish
@@ -116,11 +116,11 @@ class FG_eval {
       // Only consider the actuation at time t.
       AD<double> delta0 = vars[delta_start + t - 1];
       AD<double> a0 = vars[a_start + t - 1];
-      if (t > 1){  // Acount for latency
+      /*if (t > 1){  // Acount for latency
           AD<double> delta0 = vars[delta_start + t - 2];
           AD<double> a0 = vars[a_start + t - 2];
        
-      }
+      }*/
       AD<double> f0 = coeffs[0] + coeffs[1] * x0 + coeffs[2] * pow(x0, 2) + coeffs[3] * pow(x0, 3);
       AD<double> psi_des0 = CppAD::atan(coeffs[1] + 2*coeffs[2]*x0 + 3*coeffs[3]*pow(x0,2));
       // Here's `x` to get you started.	
@@ -174,16 +174,16 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   for (int i = 0; i < n_vars; i++) {
     vars[i] = 0.0;
   }
-
+  
   // Maybe the initial variable values are not good start for the optimization algorithm library
   // Set the initial variable values
-/*  vars[x_start] = x;
-  vars[y_start] = y;
-  vars[psi_start] = psi;
+  vars[x_start] = 0;
+  vars[y_start] = 0;
+  vars[psi_start] = 0;
   vars[v_start] = v;
   vars[cte_start] = cte;
   vars[epsi_start] = epsi;
-*/
+
   Dvector vars_lowerbound(n_vars);
   Dvector vars_upperbound(n_vars);
   // Sets lower and upper limits for variables.
