@@ -77,7 +77,6 @@ int main() {
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
     string sdata = string(data).substr(0, length);
-    cout << sdata << endl;
     if (sdata.size() > 2 && sdata[0] == '4' && sdata[1] == '2') {
       string s = hasData(sdata);
       if (s != "") {
@@ -98,7 +97,7 @@ int main() {
           Eigen::VectorXd ptsx_car(ptsx.size());
           Eigen::VectorXd ptsy_car(ptsy.size());
           
-          // Transform the points to the vehicle's orientation
+          // Transform the points into the vehicle's coordinates
           for (int i = 0; i < ptsx.size(); i++) {
             double x = ptsx[i] - px;
             double y = ptsy[i] - py;
@@ -124,24 +123,28 @@ int main() {
           // Calculate the orientation error
           // Derivative of the polyfit goes in atan() below
           // Because x = 0 in the vehicle coordinates, the higher orders are zero
-          // Leaves only coeffs[1]
-          double epsi = -atan(coeffs[1]);
+          // eψ=ψ−ψdes, Since psi is zero
+          double epsi = 0.0 - atan(coeffs[1]);
           
           // Center of gravity needed related to psi and epsi
           const double Lf = 2.67;
-          
-          // Latency for predicting time at actuation
+         
+
+	  // ******** Accounting for Latency start ********** 
+          // For 100ms latency between actuator calculation and simulator's actual actuation action
           const double dt = 0.1;
           
-          // Predict state after latency
+          // Predict state after 100ms' latency
           // x, y and psi are all zero after transformation above
-          double pred_px = 0.0 + v * dt; // Since psi is zero, cos(0) = 1, can leave out
-          const double pred_py = 0.0; // Since sin(0) = 0, y stays as 0 (y + v * 0 * dt)
+          double pred_px = 0.0 + v * dt; // Xt+1 = Xt + Vt*Cos(PSIt)*dt 
+          double pred_py = 0.0; // Yt+1 = Yt + Vt*Sin(PSIt)*dt  
           double pred_psi = 0.0 + v * -delta / Lf * dt;
           double pred_v = v + a * dt;
           double pred_cte = cte + v * sin(epsi) * dt;
           double pred_epsi = epsi + v * -delta / Lf * dt;
           
+          // ******** Accounting for Latency end **********
+
           // Feed in the predicted state values
           Eigen::VectorXd state(6);
           state << pred_px, pred_py, pred_psi, pred_v, pred_cte, pred_epsi;
@@ -152,7 +155,7 @@ int main() {
           // Calculate steering and throttle
           // Steering must be divided by deg2rad(25) to normalize within [-1, 1].
           // Multiplying by Lf takes into account vehicle's turning ability
-          double steer_value = vars[0] / (deg2rad(25) * Lf);
+          double steer_value = vars[0] / (deg2rad(25) * Lf);   /* delta / Lf */
 
           double throttle_value = vars[1];
           
