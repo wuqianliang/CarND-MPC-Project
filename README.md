@@ -55,7 +55,7 @@ The higher N (but not very high like 15,20 ) may cause the polynomial fitting sl
 And I think that three order spline fitting of waypoints may be a better way for fitting.
 
 ### The vehicle must successfully drive a lap around the track.
-Here is the demo video of my MPC implmenting.
+[Here](http://v.youku.com/v_show/id_XMzQ0MTY4ODEyMA==.html) is the demo video of my MPC implmenting.
 
 
 ## Dependencies
