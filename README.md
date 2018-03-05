@@ -5,6 +5,17 @@ Self-Driving Car Engineer Nanodegree Program
 ## Overview
 In this C++ project, I implemented a Model Predictive Control Controller(MPC) in order to drive a simulated car around a virtual track. In order keep car on track, I fit polynomial to the waypoints,calculate initial cross track error and orientation error values,define the components of the cost function (state, actuators, etc),set the constraints for optimization.And I also acount for the 100ms latency for the MPC calculation.
 
+## Project steps
+1. Transform the points into the vehicle's coordinates
+2. Fitting a line based on road waypoints and evaluating the current state like cte and epsi based on that polynomial line.
+3. Implementing the MPC calculation, including setting variables, optimization costs and constraints.
+4. Calculating actuator values delta and a from the MPC::solve from the current state.
+5. In order to accounte for latency, I caculate the future state in 100ms to replace the actual state.
+6. Calculating steering angle & throttle/brake.
+7. Setting timestep length and duration and tuning them.
+
+## Implement result
+Here is the demo video of my MPC implmenting.
 
 ## Rubic
 ### The model description
