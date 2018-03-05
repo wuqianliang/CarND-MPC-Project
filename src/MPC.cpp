@@ -8,6 +8,21 @@ using CppAD::AD;
 
 // Set the timestep length and duration
 // Currently tuned to predict 1 second worth
+/*size_t N = 15;
+double dt = 0.1;*/
+
+/*size_t N = 20;
+double dt = 0.1;*/
+
+
+/*size_t N = 15;
+double dt = 0.2;*/
+
+
+/*size_t N = 15;
+double dt = 0.3;*/
+
+
 size_t N = 10;
 double dt = 0.1;
 
