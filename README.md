@@ -30,12 +30,12 @@ The model starts out through the following values from the simulator:
 ### Polynomial Fitting and MPC Preprocessing
 
 First, calculate the relative coordinates of the navigation points relative to the car, and then map the relative coordinates of the calculated navigation points through the following companies to the coordinate system of the car's angle of view.
-`ptsx_car[i] = x * cos(-psi) - y * sin(-psi)`
-`ptsy_car[i] = x * sin(-psi) + y * cos(-psi)`
+* `ptsx_car[i] = x * cos(-psi) - y * sin(-psi)`
+* `ptsy_car[i] = x * sin(-psi) + y * cos(-psi)`
 Then use the `polyfit()` function to caculate the a third-degree polynomial line on the transformed waipoints in order to show the vehicle should go.Use the `polyeval()` to calculates the cross track error `cte` and the orientation error `epsi`.
 
 ### Model Predictive Control with Latency
-
+I add a step (line 137 ~ 144) to predict state after 100ms' latency, to replace current state in order to get the effect that when the actuator commands reach the simulator and when the simulator is executed, it has been used for 100 milliseconds, which is exactly the result of the initial state optimization of the replacement states.
 
 ### Timestep Length and Elapsed Duration (N & dt)
 
