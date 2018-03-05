@@ -29,6 +29,10 @@ The model starts out through the following values from the simulator:
 
 ### Polynomial Fitting and MPC Preprocessing
 
+First, calculate the relative coordinates of the navigation points relative to the car, and then map the relative coordinates of the calculated navigation points through the following companies to the coordinate system of the car's angle of view.
+`ptsx_car[i] = x * cos(-psi) - y * sin(-psi)`
+`ptsy_car[i] = x * sin(-psi) + y * cos(-psi)`
+Then use the `polyfit()` function to caculate the a third-degree polynomial line on the transformed waipoints in order to show the vehicle should go.Use the `polyeval()` to calculates the cross track error `cte` and the orientation error `epsi`.
 
 ### Model Predictive Control with Latency
 
