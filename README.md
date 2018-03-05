@@ -14,14 +14,17 @@ In this C++ project, I implemented a Model Predictive Control Controller(MPC) in
 6. Calculating steering angle & throttle/brake.
 7. Setting timestep length and duration and tuning them.
 
-## Implement result
-Here is the demo video of my MPC implmenting.
-
 ## Rubic
 ### The model description
-
-
-### Timestep Length and Elapsed Duration (N & dt)
+The model starts out through the following values from the simulator:
+* ptsx (x-position of waypoints in global coordinates)
+* ptsy (y-position of waypoints in global coordinates)
+* px (current x-position of the vehicle's position in global coordinates)
+* py (current y-position of the vehicle's position in global coordinates)
+* psi (current orientation angle of the vehicle, converted from the simulator's format to that expected in mathematical formulas)
+* v (current velocity of the vehicle)
+* delta (current steering angle of the car,not the actual orientation of the car in the simulator `psi`)
+* a (current throttle)
 
 
 ### Polynomial Fitting and MPC Preprocessing
@@ -30,8 +33,11 @@ Here is the demo video of my MPC implmenting.
 ### Model Predictive Control with Latency
 
 
-### The vehicle must successfully drive a lap around the track.
+### Timestep Length and Elapsed Duration (N & dt)
 
+
+### The vehicle must successfully drive a lap around the track.
+Here is the demo video of my MPC implmenting.
 
 
 ## Dependencies
