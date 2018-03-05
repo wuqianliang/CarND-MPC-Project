@@ -51,7 +51,7 @@ and in the `FG_eval class` of `MPC.cpp` I set
 
 
 ### Timestep Length and Elapsed Duration (N & dt)
-
+The higher N (but not very high like 15,20 ) has no effect of simulation of driving use MPC model, but the higher dt (like 0.2 or 0.3) may slow down the speed fo the car and somtimes may cause the optimization failed (i.e. the predicted future positions are off the track).And finaly the N=10 and dt=0.1 make the car run prefectly up to speed 100mph at some points in track.
 
 ### The vehicle must successfully drive a lap around the track.
 Here is the demo video of my MPC implmenting.
