@@ -37,6 +37,19 @@ Then use the `polyfit()` function to caculate the a third-degree polynomial line
 ### Model Predictive Control with Latency
 I add a step (line 137 ~ 144) to predict state after 100ms' latency, to replace current state in order to get the effect that when the actuator commands reach the simulator and when the simulator is executed, it has been used for 100 milliseconds, which is exactly the result of the initial state optimization of the replacement states.
 
+In MPC::Solve of `MPC.cpp` , I set 
+1. the number of model variables
+2. the initial variable values
+3. the upper and lower bound for the delta,a
+4. Lower and upper limits for the constraints
+
+and in the `FG_eval class` of `MPC.cpp` I set 
+1. Weights for how "important" each cost is
+2. add costs of (cte, epsi, velocity, actuator<delta,a>,  gap between sequential actuations) to `fg[0]`
+3. then setup Model Constraints 
+4. and then use the `CppAD::ipopt::solve<Dvector, FG_eval>()` function to solve the optimization problem and return the first actuator values, along with predicted x and y values to plot in the simulator.
+
+
 ### Timestep Length and Elapsed Duration (N & dt)
 
 
